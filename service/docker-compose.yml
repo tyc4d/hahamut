@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+    web-ori:
+        build: .
+        image: hahamut
+        networks:
+            web-ori:
+                ipv4_address: 172.21.0.2
+        environment:
+            - PORT=8766
+            - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+            - DB_PATH=/db.sqlite
+        ports:
+            - 8766:8766
+        volumes:
+            - ./flag:/flag:ro
+            - ./db.sqlite:/db.sqlite
+        restart: always
+networks:
+    web-ori:
+        ipam:
+            config:
+                - subnet: 172.21.0.0/24
